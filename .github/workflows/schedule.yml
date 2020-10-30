@@ -7,13 +7,16 @@ on:
   schedule:
     - cron: "0 */3 * * *"
 
+
 jobs:
   update-gist:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
+      - name: Install
+        run: npm ci
       - name: Update gist
-        uses: matchai/waka-box@master
+        run: node ./index.js  --unhandled-rejections=strict
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
           GIST_ID: 9c506f98898921b1dc255ff8d04f75b1
